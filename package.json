@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/saf1ya-c0d3z/-TeamProfileGenerator_/issues"
   },
-  "homepage": "https://github.com/saf1ya-c0d3z/-TeamProfileGenerator_#readme"
+  "homepage": "https://github.com/saf1ya-c0d3z/-TeamProfileGenerator_#readme",
+  "dependencies": {
+    "inquirer": "^8.2.5"
+  }
 }
