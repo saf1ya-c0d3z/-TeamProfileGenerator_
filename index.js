@@ -128,5 +128,9 @@ function employeeQ() {
     }
   });
 }
+const employeeData = []
+function generateTabs() {
+
+}
 
 managerQ().then(employeeQ);
