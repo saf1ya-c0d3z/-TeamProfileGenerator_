@@ -4,6 +4,7 @@ const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 const inquirer = require("inquirer");
 const fs = require("fs");
+const { getRandomValues } = require("crypto");
 
 function engineerQ() {
   const questions = [
@@ -38,6 +39,7 @@ function engineerQ() {
       inquirerResponses.gitHub
     );
     console.log(engineer);
+    employeeData.push(engineer);
   });
 }
 function managerQ() {
@@ -72,6 +74,8 @@ function managerQ() {
       inquirerResponses.officeNumber
     );
     console.log(manager);
+    employeeData.push(manager);
+    console.log(employeeData);
   });
 }
 
@@ -107,6 +111,7 @@ function internQ() {
       inquirerResponses.school
     );
     console.log(intern);
+    employeeData.push(intern);
   });
 }
 
@@ -116,21 +121,67 @@ function employeeQ() {
       type: "list",
       name: "employee",
       message: "What position is this employee? ",
-      choices: ["engineer", "intern"],
+      choices: ["engineer", "intern", "finishedAdding"],
     },
   ];
   return inquirer.prompt(questions).then((inquirerResponses) => {
     console.log(inquirerResponses);
     if (inquirerResponses.employee === "intern") {
       internQ().then(employeeQ);
-    } else {
+    } else if (inquirerResponses.employee === "engineer") {
       engineerQ().then(employeeQ);
+    } else {
+      // TO DO-- generate the HTML file Using the employee data Array--//
+      console.log(employeeData);
     }
   });
 }
-const employeeData = []
-function generateTabs() {
+const employeeData = [];
+function generateHTML(employeeData) {
+  const employeeCards = generateEmployeeCards(employeeData)
+  
+}
 
+function generateEmployeeCards(employeeData) {
+ return employeeData.map(employee => { 
+   if (employee.getRole() == "manager") {
+   return `
+   <div class="col">
+   MANAGER
+   ${employee.getName()}
+   ${employee.getId()}
+   ${employee.getEmail()}
+   ${employee.getOfficeNum()}
+   </div>` 
+   }
+   else if (employee.getRole() == "intern") {
+    return `
+    <div class="col">
+    INTERN
+    ${employee.getName()}
+    ${employee.getId()}
+    ${employee.getEmail()}
+    ${employee.getSchool()}
+    </div>
+    `
+   }
+   else if (employee.getRole() == "engineer") {
+   return `
+   <div class="col">
+    INTERN
+    ${employee.getName()}
+    ${employee.getId()}
+    ${employee.getEmail()}
+    ${employee.getGithub()}
+    </div>
+   `
+   }
+
+   else {
+    return ""
+   }
+   
+  }).join("")
 }
 
 managerQ().then(employeeQ);
