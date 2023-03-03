@@ -3,8 +3,14 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 const inquirer = require("inquirer");
+const path = require("path");
 const fs = require("fs");
-const { getRandomValues } = require("crypto");
+
+const DIST_DIR = path.resolve(__dirname, "dist");
+const distPath = path.join(DIST_DIR, "index.html");
+
+const render = require("./src/page-template");
+const inquirerResponses = [];
 
 function engineerQ() {
   const questions = [
@@ -121,7 +127,7 @@ function employeeQ() {
       type: "list",
       name: "employee",
       message: "What position is this employee? ",
-      choices: ["engineer", "intern", "finishedAdding"],
+      choices: ["engineer", "intern", "generateTeam"],
     },
   ];
   return inquirer.prompt(questions).then((inquirerResponses) => {
@@ -138,13 +144,14 @@ function employeeQ() {
 }
 const employeeData = [];
 function generateHTML(employeeData) {
+ 
   const employeeCards = generateEmployeeCards(employeeData)
   
 }
-
+generateHTML(employeeData)
 function generateEmployeeCards(employeeData) {
  return employeeData.map(employee => { 
-   if (employee.getRole() == "manager") {
+   if (employee.getRole() === "manager") {
    return `
    <div class="col">
    MANAGER
@@ -154,21 +161,23 @@ function generateEmployeeCards(employeeData) {
    ${employee.getOfficeNum()}
    </div>` 
    }
-   else if (employee.getRole() == "intern") {
+   else if (employee.getRole() === "intern") {
     return `
-    <div class="col">
+    <div class="col"> 
+    <div class="card">
     INTERN
     ${employee.getName()}
     ${employee.getId()}
     ${employee.getEmail()}
     ${employee.getSchool()}
     </div>
+    </div>
     `
    }
-   else if (employee.getRole() == "engineer") {
+   else if (employee.getRole() === "engineer") {
    return `
    <div class="col">
-    INTERN
+    ENGINEER
     ${employee.getName()}
     ${employee.getId()}
     ${employee.getEmail()}
@@ -177,11 +186,16 @@ function generateEmployeeCards(employeeData) {
    `
    }
 
-   else {
-    return ""
-   }
    
-  }).join("")
+   
+  })
+  function generateTeam(){
+    if (!fs.existsSync(DIST_DIR)){
+      fs.mkdirSync(DIST_DIR);
+    }
+    fs.writeFileSync(distPath, render(inquirerResponses), "utf-8");
+    }
+    
 }
 
 managerQ().then(employeeQ);
