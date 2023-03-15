@@ -1,4 +1,5 @@
 const generateTeam = team => {
+
   const generateManager = manager => {
     return `
     <div class="card employee-card">
@@ -25,7 +26,7 @@ const generateTeam = team => {
       <ul class="list-group">
         <li class="list-group-item">ID: ${engineer.getId()}</li>
         <li class="list-group-item"> Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
-        <li class="list-group-item"> Office Number: ${engineer.getGithub()}</li>
+        <li class="list-group-item"> GitHub:<a href="url"> ${engineer.getGithub()}</a> </li>
       </ul>
     </div>`
   }
@@ -40,7 +41,7 @@ const generateTeam = team => {
       <ul class="list-group">
         <li class="list-group-item">ID: ${intern.getId()}</li>
         <li class="list-group-item"> Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
-        <li class="list-group-item"> Office Number: ${intern.getSchool()}</li>
+        <li class="list-group-item"> School: ${intern.getSchool()}</li>
       </ul>
     </div>`
   }
@@ -80,7 +81,7 @@ module.exports = team => {
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 jumbotron mb-3 team-heading">
+            <div id="projectHead" class="col-12 jumbotron mb-3 team-heading">
                 <h1 class="text-center">My Team</h1>
             </div>
         </div>
