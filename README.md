@@ -7,14 +7,15 @@ This project was designed to help people who need to generate a list of employee
 <li>CSS</li>
 <li>JavaScript</li>
 <li>BootStrap</li>
-<li>User Story</li>
 <li>Node</li>
 
-# AS 
+# User Story
+
+## AS 
 A person who wants to generate a list of employees
-# I WANT 
+## I WANT 
 to be able to access data about each employee from a webpage
-# SO THAT I 
+## SO THAT I 
 can view this list and keep track of the staff and their information
 
 # Usage
