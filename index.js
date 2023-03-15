@@ -9,8 +9,7 @@ const fs = require("fs");
 const DIST_DIR = path.resolve(__dirname, "dist");
 const distPath = path.join(DIST_DIR, "index.html");
 
-const render = require("./src/page-template");
-const inquirerResponses = [];
+const createMyHTMLTemplate = require("./src/page-template");
 
 function engineerQ() {
   const questions = [
@@ -138,64 +137,21 @@ function employeeQ() {
       engineerQ().then(employeeQ);
     } else {
       // TO DO-- generate the HTML file Using the employee data Array--//
-      console.log(employeeData);
+      generateTeam()
     }
   });
 }
 const employeeData = [];
-function generateHTML(employeeData) {
- 
-  const employeeCards = generateEmployeeCards(employeeData)
-  
-}
-generateHTML(employeeData)
-function generateEmployeeCards(employeeData) {
- return employeeData.map(employee => { 
-   if (employee.getRole() === "manager") {
-   return `
-   <div class="col">
-   MANAGER
-   ${employee.getName()}
-   ${employee.getId()}
-   ${employee.getEmail()}
-   ${employee.getOfficeNum()}
-   </div>` 
-   }
-   else if (employee.getRole() === "intern") {
-    return `
-    <div class="col"> 
-    <div class="card">
-    INTERN
-    ${employee.getName()}
-    ${employee.getId()}
-    ${employee.getEmail()}
-    ${employee.getSchool()}
-    </div>
-    </div>
-    `
-   }
-   else if (employee.getRole() === "engineer") {
-   return `
-   <div class="col">
-    ENGINEER
-    ${employee.getName()}
-    ${employee.getId()}
-    ${employee.getEmail()}
-    ${employee.getGithub()}
-    </div>
-   `
-   }
 
-   
-   
-  })
+
+
+
   function generateTeam(){
     if (!fs.existsSync(DIST_DIR)){
       fs.mkdirSync(DIST_DIR);
     }
-    fs.writeFileSync(distPath, render(inquirerResponses), "utf-8");
+    fs.writeFileSync(distPath, createMyHTMLTemplate(employeeData), "utf-8");
     }
     
-}
 
 managerQ().then(employeeQ);
