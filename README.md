@@ -10,9 +10,12 @@ This project was designed to help people who need to generate a list of employee
 <li>User Story</li>
 <li>Node</li>
 
-AS A person who wants to generate a list of employees
-I WANT to be able to access data about each employee from a webpage
-So THAT I can view this list and keep track of the staff and their information
+# AS 
+A person who wants to generate a list of employees
+# I WANT 
+to be able to access data about each employee from a webpage
+# SO THAT I 
+can view this list and keep track of the staff and their information
 
 # Usage
 
